@@ -1,0 +1,16 @@
+代码编译运行：
+1:server_tcp.c: 
+gcc -pthread -o server server_tcp.c
+./server '/home/liuxun/new3_with_franum.264'
+2:tcp_recv.c:
+gcc -pthread -o tcp tcp_recv.c
+./tcp
+
+操作顺序：
+server_tcp.c先启动，tcp_recv.c后启动。
+
+功能：
+1:server_tcp.c:
+将svc视频以nalu单元按tcp协议发送出去。
+2:tcp_recv.c:
+接收发送来的视频存到文件中，并且显示帧号。
