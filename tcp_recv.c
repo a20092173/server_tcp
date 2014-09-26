@@ -59,6 +59,7 @@ void *recv_264file_thread()
 		
 	}
 	listen(local_sockfd,5);
+	flag = 1;
 	sin_size=sizeof(struct sockaddr_in);
 	if((remote_sockfd=accept(local_sockfd,(struct sockaddr *)&remote_addr,&sin_size))<0)
 	{
@@ -131,7 +132,10 @@ void *send_flag_thread()
 	remote_addr.sin_family=AF_INET; //设置为IP通信
 	remote_addr.sin_addr.s_addr=inet_addr(remote_ip);//服务器IP地址--允许连接到所有本地地址上
 	remote_addr.sin_port=htons(remote_port); //服务器端口号
-
+	while(1)
+	{  
+	    if(flag == 1)
+	    {
 		if((remote_sockfd=socket(PF_INET,SOCK_STREAM,0))<0)
 		{
 			perror("socket");
@@ -152,8 +156,8 @@ void *send_flag_thread()
 		close(remote_sockfd);
 		printf("thread2 :主函数在等我完成任务\n");
 		pthread_exit(NULL);
-		
-	
+	    }	
+	}
 
 //	*/
 
